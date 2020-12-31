@@ -1,0 +1,28 @@
+<div class="text-center">
+    <div style="background-color: #5a0023;color: white;">
+      <h4>{{action}}</h4>
+    </div>
+  <div mat-dialog-content >
+    <ng-container *ngIf="action != 'Delete'; else elseTemplate">
+        <mat-form-field >
+          <input placeholder="{{action}} Constances" matInput [(ngModel)]="local_data.constances_id">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Sample barcode" matInput [(ngModel)]="local_data.sample_barcode">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Container type" matInput [(ngModel)]="local_data.container_type">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Collection type" matInput [(ngModel)]="local_data.collection_type">
+        </mat-form-field>
+    </ng-container>
+    <ng-template #elseTemplate style="margin: 10px;">
+      <h3> Want to delete ? <B>{{local_data.sample_barcode}}</B></h3> 
+    </ng-template>
+  </div>
+  <div  mat-dialog-actions>
+    <button mat-button class="mat-success" (click)="doAction()">{{action}}</button>
+    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+  </div>
+</div>

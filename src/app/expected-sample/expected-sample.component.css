@@ -1,0 +1,24 @@
+
+     
+    th.mat-sort-header-sorted {color: black; }
+    
+    tr.mat-header-row {background-color:#6b95aa!important;}
+    
+    .mat-header-cell{color: white !important;background-color:#6b95aa!important;font-size: smaller;}
+    
+    .mat-cell, .mat-footer-cell {
+    font-size: smaller !important;
+    }
+    tr.mat-row,tr.mat-header-row,tr.mat-footer-row {
+    height: 35px !important;
+    }
+    
+    .mat-sort-header-arrow {
+    color: white!important;
+    }
+
+    .TooLateSamples{  background: #ff7755;}
+    .LateSamples{  background: #ff9;}
+    .card [class*=card-header-] .card-icon, .card [class*=card-header-] .card-text{
+        background-color: #5a0023!important;
+      }

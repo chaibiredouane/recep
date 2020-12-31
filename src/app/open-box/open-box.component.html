@@ -1,0 +1,120 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <div class="card" *ngIf="currentBox == null">   
+      <div class="row" style="margin-bottom: 10px;">
+          <div class="col-lg-12 col-md-12 ml-auto mr-auto">
+              <div class="row">     
+                  <div class="col-lg-1 col-md-2 col-sm-6">
+                    <div class="card-header card-header-icon" style="display: inline-flex;">
+                      <div class="card-icon"><i class="material-icons">inventory_2</i></div>       
+                  </div>
+                  </div>
+                  <div class="col-lg-3 col-md-4 col-sm-6">
+                    <mat-form-field>
+                      <input  matInput (keyup.enter)="openBox($event.target.value)"  placeholder="Box barcode">
+                    </mat-form-field>
+                  </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+      <div class="row" *ngIf="currentBox != null">
+          <div class="col-md-12">
+              <div class="card">     
+                    <div class="row" style="margin-bottom: 10px;">
+                      <div class="col-lg-12 col-md-12 ml-auto mr-auto">
+                          <div class="row">     
+                              <div class="col-md-6">
+                                <div class="card-header card-header-icon">
+                                  <div class="card-icon"><i class="material-icons">inventory_2</i></div>   
+                                  <h4 class="card-title ">Excpected samples from box : <b> {{currentBox}} </b>  </h4>         
+                              </div>
+                              </div>
+                              <div class="col-md-3">
+                                <mat-form-field>
+                                  <input  matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3"> 
+                                  <!-- <button mat-raised-button class="btn btn-block" (click)="openDialog('Add',{})" style="background-color: #5a0023; color: white;">Close the box <i class="material-icons">inventory_2</i> </button> -->
+                                  <button mat-raised-button class="btn btn-block" (click)="closeBox()" style="background-color: #5a0023; color: white;">Close the box <i class="material-icons">inventory_2</i> </button>        
+                                </div>
+                      </div>
+                  </div>
+                  </div>
+
+                <div class="row">     
+                  <div class="col-md-4"> </div>
+                    <div class="col-md-4">
+                      <mat-form-field>
+                        <input  matInput (keyup.enter)="addScanSample($event.target.value)" [(ngModel)]="scanBarcode"  placeholder="Sample barcode">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+                  
+                    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                 
+                      <ng-container matColumnDef="constances_id">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Constances ID </th>
+                          <td mat-cell *matCellDef="let element"> {{element.constances_id}} </td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="sample_barcode">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sample barcode </th>
+                          <td mat-cell *matCellDef="let element"> {{element.sample_barcode}} </td>
+                      </ng-container>
+                  
+                      <ng-container matColumnDef="collection_type">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Collection type </th>
+                        <td mat-cell *matCellDef="let element"> {{element.collection_type}} </td>
+                    </ng-container>
+
+                      <ng-container matColumnDef="container_type">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Container type </th>
+                        <td mat-cell *matCellDef="let element"> {{element.container_type}} </td>
+                    </ng-container>                           
+                  
+                    <ng-container matColumnDef="collect_date">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> collect date </th>
+                        <td mat-cell *matCellDef="let element"> {{element.collect_date}} </td>
+                    </ng-container>
+                      
+                    <ng-container matColumnDef="time_elapsed">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Time elapsed </th>
+                        <td mat-cell *matCellDef="let element"> {{element.time_elapsed}} </td>
+                    </ng-container>
+                  
+                    <ng-container matColumnDef="scan_datetime">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Scan datetime </th>
+                      <td mat-cell *matCellDef="let element"> {{element.scan_datetime | date:"dd-MM-yyyy HH:mm"}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="scan_by">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Scan by </th>
+                    <td mat-cell *matCellDef="let element"> {{element.scan_by}} </td>
+                </ng-container>
+                    <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef> Action </th>
+                  <td mat-cell *matCellDef="let element" class="action-link"> 
+                    <button type="button" class="btn btn-link" (click)="openDialog('Update',element)" style="font-size: xx-small;"><u>Edit</u></button>
+                    <button type="button" class="btn btn-link" (click)="openDialog('Delete',element)" style="font-size: xx-small;"><u>click to cancel</u></button>
+                  </td>
+                </ng-container>
+            
+            
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;let entry" ></tr>
+                  
+                    </table>
+                  
+                    <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
