@@ -1,28 +1,58 @@
 <div class="text-center">
-    <div style="background-color: #5a0023;color: white;">
-      <h4>{{action}}</h4>
+    <div style="background-color: #5a0023;color: white;text-transform:uppercase">
+      <h2>{{action}}</h2>
     </div>
   <div mat-dialog-content >
     <ng-container *ngIf="action != 'Delete'; else elseTemplate">
         <mat-form-field >
-          <input placeholder="{{action}} Constances" matInput [(ngModel)]="local_data.constances_id">
+          <input placeholder="{{action}} Nc code" matInput required [(ngModel)]="local_data.nc_code">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Sample barcode" matInput [(ngModel)]="local_data.sample_barcode">
+          <input placeholder="{{action}} Label" matInput required [(ngModel)]="local_data.nc_display">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Container type" matInput [(ngModel)]="local_data.container_type">
+          <input placeholder="{{action}} Lims Display" matInput [(ngModel)]="local_data.nc_lims_display">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Collection type" matInput [(ngModel)]="local_data.collection_type">
+          <input placeholder="{{action}} Sample type" matInput [(ngModel)]="local_data.sample_types">
         </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} FR translation" matInput required [(ngModel)]="local_data.fr_translation">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Category" matInput [(ngModel)]="local_data.category">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <mat-select value="{{manualSelected}}" placeholder="{{action}} Manual" required (selectionChange)="changeManual($event)">
+                <mat-option value=0>Disable</mat-option>
+                <mat-option value=1>Enable</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+        <mat-select value="{{formSelected}}" placeholder="{{action}} Form" (selectionChange)="changeForm($event)">
+              <mat-option value=0>Disable</mat-option>
+              <mat-option value=1>Enable</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+            <mat-select value="{{deviationSelected}}" placeholder="{{action}} Deviation" (selectionChange)="changeDeviation($event)">
+                  <mat-option value=0>Disable</mat-option>
+                  <mat-option value=1>Enable</mat-option>
+            </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+        <mat-select value="{{displaySelected}}" placeholder="{{action}} To display" (selectionChange)="changeDisplay($event)">
+              <mat-option value=0>Disable</mat-option>
+              <mat-option value=1>Enable</mat-option>
+        </mat-select>
+    </mat-form-field>
     </ng-container>
     <ng-template #elseTemplate style="margin: 10px;">
-      <h3> Want to delete ? <B>{{local_data.sample_barcode}}</B></h3> 
+      <h3> Want to delete ? <B>{{local_data.nc_code}}</B></h3> 
     </ng-template>
   </div>
   <div  mat-dialog-actions>
     <button mat-button class="mat-success" (click)="doAction()">{{action}}</button>
-    <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+    <button mat-button class="mat-danger" (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
   </div>
 </div>

@@ -25,6 +25,7 @@ import {  AgmCoreModule} from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { NcInfoService } from './services/ncInfo.service';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     AuthGuard,
     UserService,
     SampleService,
-    ToastrService
+    ToastrService,
+    NcInfoService
   ],
   bootstrap: [AppComponent]
 })

@@ -10,8 +10,10 @@ import { OpenBoxComponent } from '../../open-box/open-box.component';
 import { ExpectedSampleComponent } from '../../expected-sample/expected-sample.component';
 import { DialogBoxComponent } from '../../dialog-box/dialog-box.component';
 import { DragDropComponent } from '../../drag-drop/drag-drop.component';
+import { NcInfoComponent } from '../../nc-info/nc-info.component';
 
 export const AdminLayoutRoutes: Routes = [
+    { path: 'nc_info',          component: NcInfoComponent },
     { path: 'expected',         component: ExpectedSampleComponent },
     { path: 'box_arrival',      component: BoxArrivalComponent },
     { path: 'open_boxes',       component: OpenBoxComponent },

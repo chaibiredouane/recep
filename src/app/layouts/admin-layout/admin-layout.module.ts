@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from 'ngx-toastr';
 import { DragDropComponent } from '../../drag-drop/drag-drop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop'
+import { NcInfoComponent } from '../../nc-info/nc-info.component';
 
 @NgModule({
   imports: [
@@ -56,7 +57,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop'
     InconsistencyComponent,
     CentriComponent,
     DialogBoxComponent,
-    DragDropComponent
+    DragDropComponent,
+    NcInfoComponent
   ],
   entryComponents: [
     DialogBoxComponent

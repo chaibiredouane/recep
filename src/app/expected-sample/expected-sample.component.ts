@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -24,7 +24,8 @@ export class ExpectedSampleComponent  {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
 
-  constructor(public dialog:MatDialog, private authService: AuthService, private sampleService:SampleService){
+  constructor(public dialog:MatDialog, private authService: AuthService, private sampleService:SampleService
+    ,private changeDetectorRefs: ChangeDetectorRef){
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit,ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit,ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -28,7 +28,7 @@ export class OpenBoxComponent implements OnInit {
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
 
   constructor(public dialog:MatDialog, private authService: AuthService, private sampleService:SampleService,
-    private toastr: ToastrService){
+    private toastr: ToastrService,private changeDetectorRefs: ChangeDetectorRef){
   }
 
   ngOnInit() {

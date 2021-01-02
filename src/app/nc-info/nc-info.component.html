@@ -1,0 +1,125 @@
+<div class="main-content">
+    <div class="container-fluid">
+ 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">     
+                      <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-lg-12 col-md-12 ml-auto mr-auto">
+                            <div class="row">     
+                                <div class="col-md-6">
+                                  <div class="card-header card-header-icon">
+                                    <div class="card-icon"><i class="material-icons">inventory_2</i></div>   
+                                    <h4 class="card-title ">Non Conformity Management </h4>         
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                    </div>
+  
+                  <div class="row">     
+                    <div class="col-md-3"> </div>
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <input  matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-3"> </div>
+                      <div class="col-md-3">
+                            <button mat-raised-button class="btn btn-block" (click)="openDialog('Add',{})" style="background-color: #5a0023; color: white;"><i class="material-icons">add_box</i> ADD Non Conformity </button>
+                      </div>
+                  </div>
+                    
+                      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+                   
+                        <ng-container matColumnDef="nc_code">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nc_code}} </td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="nc_display">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Label </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nc_display}} </td>
+                        </ng-container>
+                    
+                        <ng-container matColumnDef="nc_lims_display">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Lims display </th>
+                          <td mat-cell *matCellDef="let element"> {{element.nc_lims_display}} </td>
+                      </ng-container>     
+                                               
+                      <ng-container matColumnDef="sample_types">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sample types </th>
+                          <td mat-cell *matCellDef="let element"> {{element.sample_types}} </td>
+                      </ng-container>
+                        
+                      <ng-container matColumnDef="fr_translation">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> FR translation </th>
+                        <td mat-cell *matCellDef="let element"> {{element.fr_translation}} </td>
+                    </ng-container>
+  
+                    <ng-container matColumnDef="category">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                      <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="is_manual" style="text-align: center;">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Manual </th>
+                    <td mat-cell *matCellDef="let element">
+                      <div *ngIf="element.is_manual =='0'" style="color:#5a0023" title="{{element.is_manual}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">close</i> </div>
+                        <div *ngIf="element.is_manual !='0'" style="color:#6b95aa" title="{{element.is_manual}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">done</i> </div>
+                      </td>
+                 </ng-container> 
+
+                    <ng-container matColumnDef="is_form">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Form </th>
+                      <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.is_form =='0'" style="color:#5a0023" title="{{element.is_form}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">close</i> </div>
+                        <div *ngIf="element.is_form !='0'" style="color:#6b95aa" title="{{element.is_form}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">done</i> </div>                       
+                      </td>
+                  </ng-container>    
+
+                  <ng-container matColumnDef="is_deviation">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Lims </th>
+                    <td  mat-cell *matCellDef="let element">
+                      <div *ngIf="element.is_deviation =='0'" style="color:#5a0023" title="{{element.is_deviation}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">close</i> </div>
+                      <div *ngIf="element.is_deviation !='0'" style="color:#6b95aa" title="{{element.is_deviation}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">done</i> </div>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="to_be_display">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Display </th>
+                    <td mat-cell *matCellDef="let element"> 
+                      <div *ngIf="element.to_be_display =='0'" style="color:#5a0023" title="{{element.to_be_display}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">close</i> </div>
+                      <div *ngIf="element.to_be_display !='0'" style="color:#6b95aa" title="{{element.to_be_display}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">done</i> </div>
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="is_active">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+                    <td mat-cell *matCellDef="let element"> 
+                      <div *ngIf="element.is_active =='0'" style="color:#5a0023" title="{{element.is_active}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">power_settings_new</i> </div>
+                      <div *ngIf="element.is_active !='0'" style="color:#6b95aa" title="{{element.is_active}}" onMouseOver="this.style.cursor='pointer'"> <i class="material-icons">power_settings_new</i> </div>
+                    </td>
+                </ng-container>
+                      <!-- Action Column -->
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef><span class="material-icons">rule</span></th>
+                    <td mat-cell *matCellDef="let element" class="action-link text-center"> 
+                      <button type="button" class="btn btn-link" (click)="openDialog('Update',element)" title="Edit" style="font-size:small;margin: 2px;padding: 2px;color: #5a0023;">
+                        <i class="material-icons">edit</i></button>
+                      <button type="button" class="btn btn-link" (click)="openDialog('Delete',element)" title="Delete" style="font-size: small;margin: 2px;padding: 2px;color: #5a0023;">
+                        <i class="material-icons">delete_forever</i></button>
+                    </td>
+                  </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;let entry" [ngClass]="{'disable': entry.is_active == '0' }" ></tr>     
+             </table>
+                    
+                      <mat-paginator [pageSizeOptions]="[20, 50, 100]" showFirstLastButtons></mat-paginator>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
