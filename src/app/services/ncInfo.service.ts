@@ -1,7 +1,7 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders  } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { NcInfo } from "../models/ncInfo";
+import { NcInfo } from "../models/ncInfo.model";
 
 @Injectable()
 export class NcInfoService{
@@ -21,12 +21,17 @@ export class NcInfoService{
         }
     
       updateRow (ncInfo: NcInfo): Observable<Object> {
-        console.log('code : '||ncInfo.nc_code);
-     
+
           return this.http.put<NcInfo>(`${this.baseUrl}`,ncInfo);
          }
   
       deleteRow (ncInfo:NcInfo):Observable<Object>{
-        return this.http.delete<NcInfo>(`${this.baseUrl}/${ncInfo}`);
+        const options = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          }),
+          body: ncInfo
+        }
+        return this.http.delete<NcInfo>(`${this.baseUrl}`, options);
       }
 }

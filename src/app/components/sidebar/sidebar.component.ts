@@ -9,7 +9,10 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
     { path: '/nc_info', title: 'NC Management',  icon: 'settings_applications', class: '' },
-    { path: '/expected', title: 'Expected samples',  icon: 'hourglass_top', class: '' },
+    { path: '/nc_condition', title: 'NC Conditions',  icon: 'handyman', class: '' },
+    { path: '/nc_data', title: 'NC Data',  icon: 'bug_report', class: '' },
+    { path: '/samples', title: 'Sample Management',  icon: 'extension', class: '' },
+    { path: '/expecte', title: 'Expected samples',  icon: 'hourglass_top', class: '' },
     { path: '/box_arrival', title: 'Box arrival',  icon:'local_shipping', class: '' },
     { path: '/open_boxes', title: 'Opening boxes',  icon:'inventory_2', class: '' },
     { path: '/form', title: 'Form encoding',  icon:'table_view', class: '' },

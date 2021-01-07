@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
@@ -26,6 +26,8 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { NcInfoService } from './services/ncInfo.service';
+import { NcConditionService } from './services/ncCondotion.service';
+import { NcDataService } from './services/ncData.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,10 @@ import { NcInfoService } from './services/ncInfo.service';
     UserService,
     SampleService,
     ToastrService,
-    NcInfoService
+    NcInfoService,
+    NcConditionService,
+    DatePipe,
+    NcDataService
   ],
   bootstrap: [AppComponent]
 })

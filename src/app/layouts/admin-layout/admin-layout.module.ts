@@ -27,6 +27,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { DragDropComponent } from '../../drag-drop/drag-drop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop'
 import { NcInfoComponent } from '../../nc-info/nc-info.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NcConditionComponent } from '../../nc-condition/nc-condition.component';
+import { DialogNcConditionComponent } from '../../dialog-nc-condition/dialog-nc-condition.component';
+import { NcDataComponent } from '../../nc-data/nc-data.component';
+import { DialogNcDataComponent } from '../../dialog-nc-data/dialog-nc-data.component';
+import { SamplesComponent } from '../../samples/samples.component';
+import { DialogSampleComponent } from '../../dialog-sample/dialog-sample.component';
 
 @NgModule({
   imports: [
@@ -45,7 +52,8 @@ import { NcInfoComponent } from '../../nc-info/nc-info.component';
     MatPaginatorModule,
     MatSortModule,
     MatDialogModule,
-    DragDropModule
+    DragDropModule,
+    MatSlideToggleModule
   ],
   declarations: [
     UpgradeComponent,
@@ -58,10 +66,19 @@ import { NcInfoComponent } from '../../nc-info/nc-info.component';
     CentriComponent,
     DialogBoxComponent,
     DragDropComponent,
-    NcInfoComponent
+    NcInfoComponent,
+    NcConditionComponent,
+    DialogNcConditionComponent,
+    NcDataComponent,
+    DialogNcDataComponent,
+    SamplesComponent,
+    DialogSampleComponent
   ],
   entryComponents: [
-    DialogBoxComponent
+    DialogBoxComponent,
+    DialogNcConditionComponent,
+    DialogNcDataComponent,
+    DialogSampleComponent
   ]
 })
 

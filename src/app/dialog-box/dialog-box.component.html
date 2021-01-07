@@ -1,14 +1,18 @@
 <div class="text-center">
-    <div style="background-color: #5a0023;color: white;text-transform:uppercase">
-      <h2>{{action}}</h2>
+    <div style="background-color: #5a0023;color: white;text-transform:uppercase;">
+      <a *ngIf="action =='Add'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">add_box</i> {{action}} </a>
+      <a *ngIf="action =='Update'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">edit</i> {{action}} </a>
+      <a *ngIf="action =='Delete'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">delete_forever</i> {{action}} </a>
     </div>
   <div mat-dialog-content >
     <ng-container *ngIf="action != 'Delete'; else elseTemplate">
         <mat-form-field >
-          <input placeholder="{{action}} Nc code" matInput required [(ngModel)]="local_data.nc_code">
+          <input style="font-weight: bolder; color: #5a0023;" placeholder="{{action}} Nc code" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.nc_code" [formControl]="ncCode" required>
+          <!-- <mat-error *ngIf="ncCode.invalid">{{getErrorMessage()}}</mat-error> -->
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Label" matInput required [(ngModel)]="local_data.nc_display">
+          <input placeholder="{{action}} Label" matInput [(ngModel)]="local_data.nc_display" [formControl]="ncLabel" required>
+          <!-- <mat-error *ngIf="ncCode.invalid">{{getLabelErrorMessage()}}</mat-error> -->
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
           <input placeholder="{{action}} Lims Display" matInput [(ngModel)]="local_data.nc_lims_display">
@@ -19,40 +23,78 @@
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
           <input placeholder="{{action}} FR translation" matInput required [(ngModel)]="local_data.fr_translation">
         </mat-form-field>
-        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Category" matInput [(ngModel)]="local_data.category">
-        </mat-form-field>
-        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <mat-select value="{{manualSelected}}" placeholder="{{action}} Manual" required (selectionChange)="changeManual($event)">
-                <mat-option value=0>Disable</mat-option>
-                <mat-option value=1>Enable</mat-option>
-          </mat-select>
-      </mat-form-field>
-      <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-        <mat-select value="{{formSelected}}" placeholder="{{action}} Form" (selectionChange)="changeForm($event)">
-              <mat-option value=0>Disable</mat-option>
-              <mat-option value=1>Enable</mat-option>
+
+     <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+        <mat-select value="{{categorySelected}}" placeholder="{{action}} Category" (selectionChange)="changeCategory($event)">
+              <mat-option value=""></mat-option>
+               <mat-option value="COLLECTION">COLLECTION</mat-option>
+              <mat-option value="RECEPTION">RECEPTION</mat-option>
+              <mat-option value="TRANSPORT">TRANSPORT</mat-option>
+              <mat-option value="PROCESSING">PROCESSING</mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-            <mat-select value="{{deviationSelected}}" placeholder="{{action}} Deviation" (selectionChange)="changeDeviation($event)">
-                  <mat-option value=0>Disable</mat-option>
-                  <mat-option value=1>Enable</mat-option>
-            </mat-select>
+
+      <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
+        <div class="row">
+          <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Is Manual " matInput required [(ngModel)]="manualSelected" > </div>
+          <div class="col-md-6">
+            <mat-slide-toggle [checked]="isChecked(manualSelected)"  (change)="toggleManual($event)" >
+              {{manualSelected}}
+            </mat-slide-toggle>
+          </div>
+        </div>
       </mat-form-field>
-      <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-        <mat-select value="{{displaySelected}}" placeholder="{{action}} To display" (selectionChange)="changeDisplay($event)">
-              <mat-option value=0>Disable</mat-option>
-              <mat-option value=1>Enable</mat-option>
-        </mat-select>
+    <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
+      <div class="row">
+        <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Is Form " matInput required [(ngModel)]="formSelected" > </div>
+        <div class="col-md-6">
+          <mat-slide-toggle [checked]="isChecked(formSelected)" (change)="toggleForm($event)" >
+            {{formSelected}}
+          </mat-slide-toggle>
+        </div>
+      </div>
     </mat-form-field>
+      <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
+        <div class="row">
+          <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Deviation " matInput required [(ngModel)]="deviationSelected" > </div>
+          <div class="col-md-6">
+            <mat-slide-toggle [checked]="isChecked(deviationSelected)"  (change)="toggleDeviation($event)" >
+              {{deviationSelected}}
+            </mat-slide-toggle>
+          </div>
+        </div>
+      </mat-form-field>
+    <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
+      <div class="row">
+        <div class="col-md-6"> <input matInput readonly placeholder="{{action}} To display " matInput required [(ngModel)]="displaySelected" > </div>
+        <div class="col-md-6">
+          <mat-slide-toggle [checked]="isChecked(displaySelected)"  (change)="toggleDisplay($event)" >
+            {{displaySelected}}
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="action != 'Delete'; else elseTemplate" > 
+      <div class="row">
+        <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Is active " matInput required [(ngModel)]="labelActive" > </div>
+        <div class="col-md-6">
+          <mat-slide-toggle checked="{{activeSelected}}" (change)="toggleActive($event)" >
+            {{labelActive}}
+          </mat-slide-toggle>
+        </div>
+      </div>
+    </mat-form-field>
+    
     </ng-container>
     <ng-template #elseTemplate style="margin: 10px;">
-      <h3> Want to delete ? <B>{{local_data.nc_code}}</B></h3> 
+      <mat-form-field style="text-align: center;margin:10px;" >
+        <input style="font-weight:bolder;"  placeholder="{{action}} Nc code" readonly matInput required [(ngModel)]="local_data.nc_code">
+      </mat-form-field>
     </ng-template>
   </div>
   <div  mat-dialog-actions>
-    <button mat-button class="mat-success" (click)="doAction()">{{action}}</button>
+    <button mat-button class="mat-success" (click)="doAction()" [disabled]="isDisableForm()" >{{action}}</button>
     <button mat-button class="mat-danger" (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
   </div>
 </div>

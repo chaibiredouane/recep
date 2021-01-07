@@ -1,0 +1,91 @@
+<div class="text-center">
+    <div style="background-color: #5a0023;color: white;text-transform:uppercase;">
+      <a *ngIf="action =='Add'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">add_box</i> {{action}} </a>
+      <a *ngIf="action =='Update'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">edit</i> {{action}} </a>
+      <a *ngIf="action =='Delete'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">delete_forever</i> {{action}} </a>
+    </div>
+  <div mat-dialog-content >
+    <ng-container *ngIf="action == 'Add' || action == 'Update'">
+        <mat-form-field >
+          <input style="font-weight: bolder; color: #5a0023;" placeholder="Id" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.id" required>
+        </mat-form-field>
+        <mat-form-field >
+          <input placeholder="{{action}} Constances Id" readonly matInput [(ngModel)]="local_data.constances_id">
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="{{action}} Sample barcode" matInput [(ngModel)]="local_data.sample_barcode">
+        </mat-form-field>
+        <mat-form-field>
+          <input placeholder="{{action}} Sample id lims" readonly matInput [(ngModel)]="local_data.sample_id_lims">
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="{{action}} Ces id" readonly matInput [(ngModel)]="local_data.ces_id">
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="{{action}} Box id" readonly matInput [(ngModel)]="local_data.box_id">
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="{{action}} Collect datetime" readonly matInput [(ngModel)]="local_data.collect_datetime">
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="{{action}} Scan datetime" readonly matInput [(ngModel)]="local_data.scan_datetime">
+        </mat-form-field>
+        <mat-form-field>
+        <input placeholder="{{action}} Abort reason" matInput [(ngModel)]="local_data.abort_reason">
+        </mat-form-field>
+        <mat-form-field>
+            <input placeholder="{{action}} Scan by" readonly matInput [(ngModel)]="local_data.scan_by">
+        </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="action == 'Add' || action == 'Update' || action == 'Detail'">
+        <mat-form-field >
+          <input placeholder="Sample id" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.sample_id" required>
+        </mat-form-field>
+        <mat-form-field >
+          <input placeholder="Fasting" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.fasting" required>
+        </mat-form-field>
+        <mat-form-field >
+            <input placeholder="Container type" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.container_type" required>
+        </mat-form-field>
+        <mat-form-field >
+            <input placeholder="Collection type" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.collection_type" required>
+        </mat-form-field>
+        <mat-form-field >
+            <input placeholder="Centri datetime" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.centri_datetime" required>
+          </mat-form-field>
+          <mat-form-field >
+            <input placeholder="Centri speed" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.centri_speed" required>
+          </mat-form-field>
+          <mat-form-field >
+              <input placeholder="Centri brake" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.centri_brake" required>
+          </mat-form-field>
+          <mat-form-field >
+              <input placeholder="Centri temperature" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.centri_temperature" required>
+          </mat-form-field>
+          <mat-form-field >
+            <input placeholder="Centri duration" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.centri_duration" required>
+          </mat-form-field>
+          <mat-form-field >
+            <input placeholder="Centri runno" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.centri_runno" required>
+          </mat-form-field>
+          <mat-form-field >
+              <input placeholder="Freezing datetime" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.freezing_datetime" required>
+          </mat-form-field>
+          <mat-form-field >
+              <input placeholder="Order state" [readonly]="action == 'Detail'" matInput [(ngModel)]="local_data.order_state" required>
+          </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="action == 'Delete'" style="margin: 10px;">
+      <mat-form-field style="text-align: center;margin:10px;" >
+        <input style="font-weight:bolder;"  placeholder="{{action}} ID" readonly matInput required [(ngModel)]="local_data.id">
+      </mat-form-field>
+      <mat-form-field style="text-align: center;margin:10px;" >
+        <input style="font-weight:bolder;"  placeholder="{{action}} Sample barcode" readonly matInput required [(ngModel)]="local_data.sample_barcode">
+      </mat-form-field>
+    </ng-container>
+  </div>
+  <div  mat-dialog-actions>
+    <button *ngIf="action !== 'Detail'"  mat-button class="mat-success" (click)="doAction()" [disabled]="isDisableForm()" >{{action}}</button>
+    <button mat-button class="mat-danger" (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+  </div>
+</div>

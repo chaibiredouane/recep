@@ -4,12 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Subject } from 'rxjs';
-import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
-import { Sample } from '../models/sample.model';
+import { ExpectedSample, Sample } from '../models/sample.model';
 import { AuthService } from '../services/auth.service';
 import { SampleService } from '../services/sample.service';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-expected-sample',
@@ -17,7 +14,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./expected-sample.component.css']
 })
 export class ExpectedSampleComponent  {
-  dataSource = new MatTableDataSource<Sample>();
+  dataSource = new MatTableDataSource<ExpectedSample>();
   currentDate = new Date();
   displayedColumns: string[] = ['ces_id','constances_id', 'sample_barcode', 'container_type','collection_type', 'collect_date','collect_time','time_elapsed','late_status'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,7 +26,7 @@ export class ExpectedSampleComponent  {
   }
 
   ngOnInit() {
-    this.loadData();
+    this.refresh();
   }
 
   ngAfterViewInit() {
@@ -45,14 +42,12 @@ applyFilter(filterValue: string) {
   
 
   refresh() {
-    this.loadData();
+    this.sampleService.getexpectedSample().subscribe((data: ExpectedSample[]) => {
+      this.dataSource.data = data;
+      // this.dataSource = new MatTableDataSource(this.sampleService.getFromServer());
+      this.dataSource.paginator = this.paginator;
+      this.changeDetectorRefs.detectChanges();
+      });
   }
 
-  public loadData() { 
-    this.sampleService.getSamples().subscribe((data: Sample[]) => {
-    this.dataSource.data = data;
-    // this.dataSource = new MatTableDataSource(this.sampleService.getFromServer());
-    this.dataSource.paginator = this.paginator;
-    });
-   }
 }

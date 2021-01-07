@@ -4,36 +4,33 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
-import { NcInfo } from '../models/ncInfo.model';
-import { NcInfoService } from '../services/ncInfo.service';
+import { DialogNcDataComponent } from '../dialog-nc-data/dialog-nc-data.component';
+import { NcData } from '../models/ncData.model';
+import { NcDataService } from '../services/ncData.service';
 
 @Component({
-  selector: 'app-nc-info',
-  templateUrl: './nc-info.component.html',
-  styleUrls: ['./nc-info.component.css']
+  selector: 'app-nc-data',
+  templateUrl: './nc-data.component.html',
+  styleUrls: ['./nc-data.component.css']
 })
-export class NcInfoComponent implements OnInit {
-  dataSource = new MatTableDataSource<NcInfo>();
-  displayedColumns: string[] = ['nc_code','nc_display','nc_lims_display','sample_types','fr_translation','category','is_manual','is_form','is_deviation','to_be_display','is_active','action'];
+export class NcDataComponent implements OnInit {
+
+  dataSource = new MatTableDataSource<NcData>();
+  displayedColumns: string[] = ['sample_id','nc_code','status','create_date','action'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
+  
+  constructor(public dialog:MatDialog, private ncService:NcDataService,private changeDetectorRefs: ChangeDetectorRef,
+    private toastr: ToastrService){}
 
-  constructor(public dialog:MatDialog, private ncInfoService:NcInfoService,private changeDetectorRefs: ChangeDetectorRef,
-    private toastr: ToastrService){
-  }
-
-  ngOnInit() {
-    this.refresh();
-  }
+  ngOnInit() {this.refresh();}
   refresh() {
-    this.ncInfoService.getAll().subscribe((data: NcInfo[]) => {
-      this.dataSource = new MatTableDataSource<NcInfo>(data);
+    this.ncService.getAll().subscribe((data: NcData[]) => {
+      this.dataSource = new MatTableDataSource<NcData>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      // this.changeDetectorRefs.detectChanges();
-     // this.table.renderRows();
+      this.changeDetectorRefs.detectChanges();
       });
   }
 
@@ -50,7 +47,7 @@ export class NcInfoComponent implements OnInit {
   
   openDialog(action,obj) {
     obj.action = action;
-    const dialogRef = this.dialog.open(DialogBoxComponent, {width: '450px', data:obj});
+    const dialogRef = this.dialog.open(DialogNcDataComponent, {width: '450px', data:obj});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result.event == 'Add'){this.addRowData(result.data);}
@@ -60,18 +57,19 @@ export class NcInfoComponent implements OnInit {
   }
 
    addRowData(row_obj){
-    this.ncInfoService.addRow(row_obj).subscribe();
+    this.ncService.addRow(row_obj).subscribe();
     this.refresh();
   }
 
   updateRowData(row_obj){
-     this.ncInfoService.updateRow(row_obj).subscribe();
+     this.ncService.updateRow(row_obj).subscribe();
     this.refresh();
   }
   
   deleteRowData(row_obj){
-    this.ncInfoService.deleteRow(row_obj).subscribe();
+    this.ncService.deleteRow(row_obj).subscribe();
     this.refresh();
   }
+
 
 }

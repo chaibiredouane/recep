@@ -6,7 +6,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { trim } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
-import { Sample } from '../models/sample.model';
+import { ExpectedSample } from '../models/sample.model';
 // import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { AuthService } from '../services/auth.service';
 import { SampleService } from '../services/sample.service';
@@ -21,7 +21,7 @@ export class OpenBoxComponent implements OnInit {
   currentUser:string = 'rchaibi';
   currentBox:string=null;
   scanBarcode=null;
-  dataSource = new MatTableDataSource<Sample>();
+  dataSource = new MatTableDataSource<ExpectedSample>();
   displayedColumns: string[] = ['constances_id', 'sample_barcode','collection_type','container_type','collect_date','time_elapsed','scan_datetime','scan_by','action'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -64,9 +64,9 @@ export class OpenBoxComponent implements OnInit {
      }
    }
 
-   fillSample(barcode: string):Sample{    
+   fillSample(barcode: string):ExpectedSample{    
     var prefix = barcode.trim().substring(0,2);
-    var scanSample =  new Sample();
+    var scanSample =  new ExpectedSample();
 
     switch (prefix.toUpperCase()) {
       case 'BS':
@@ -113,17 +113,17 @@ applyFilter(filterValue: string) {
   }
 
   addRowData(row_obj){
-    this.sampleService.addSample(row_obj).subscribe();
+    this.sampleService.addexpectedSample(row_obj).subscribe();
     this.loadData();
   }
 
   updateRowData(row_obj){
-    this.sampleService.updateSample(row_obj).subscribe();
+    this.sampleService.updateexpectedSample(row_obj).subscribe();
     this.loadData();
   }
   
   deleteRowData(row_obj){
-    this.sampleService.deleteSample(row_obj).subscribe();
+    this.sampleService.deleteexpectedSample(row_obj).subscribe();
     this.loadData();
   }
 
@@ -132,7 +132,7 @@ applyFilter(filterValue: string) {
   }
 
   public loadData() { 
-    this.sampleService.getSamples().subscribe((data: Sample[]) => {
+    this.sampleService.getexpectedSample().subscribe((data: ExpectedSample[]) => {
     this.dataSource.data = data;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

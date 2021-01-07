@@ -1,0 +1,49 @@
+<div class="text-center">
+    <div style="background-color: #5a0023;color: white;text-transform:uppercase;">
+      <a *ngIf="action =='Add'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">add_box</i> {{action}} </a>
+      <a *ngIf="action =='Update'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">edit</i> {{action}} </a>
+      <a *ngIf="action =='Delete'" class="btn btn-block"  style="background-color: #5a0023; color: white;font-size: larger;"><i class="material-icons" style="font-size: larger;">delete_forever</i> {{action}} </a>
+    </div>
+  <div mat-dialog-content >
+    <ng-container *ngIf="action != 'Delete'; else elseTemplate">
+        <mat-form-field >
+          <input style="font-weight: bolder; color: #5a0023;" placeholder="{{action}} Nc code" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.nc_code" [formControl]="ncCode" required>
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <textarea placeholder="{{action}} Condition" rows="2" matInput [(ngModel)]="local_data.nc_condition" [formControl]="nc_condition" required></textarea>
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Apply by" matInput [(ngModel)]="local_data.nc_apply_by">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+            <input placeholder="{{action}} Comment" matInput [(ngModel)]="local_data.nc_comment">
+        </mat-form-field>
+        <mat-form-field *ngIf="action == 'Update'">
+          <input placeholder="{{action}} Create date" readonly matInput [(ngModel)]="local_data.create_date">
+        </mat-form-field>
+        <mat-form-field *ngIf="action == 'Update'">
+          <input placeholder="{{action}} Update date" readonly matInput required [(ngModel)]="local_data.update_date">
+        </mat-form-field>
+    
+        <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
+            <div class="row">
+            <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Is active " matInput required [(ngModel)]="activeSelected" > </div>
+            <div class="col-md-6">
+                <mat-slide-toggle [checked]="isChecked(activeSelected)"  (change)="toggleActive($event)" >
+                {{activeSelected}}
+                </mat-slide-toggle>
+            </div>
+            </div>
+        </mat-form-field>
+    </ng-container>
+    <ng-template #elseTemplate style="margin: 10px;">
+      <mat-form-field style="text-align: center;margin:10px;" >
+        <input style="font-weight:bolder;"  placeholder="{{action}} Nc code" readonly matInput required [(ngModel)]="local_data.nc_code">
+      </mat-form-field>
+    </ng-template>
+  </div>
+  <div  mat-dialog-actions>
+    <button mat-button class="mat-success" (click)="doAction()" [disabled]="isDisableForm()" >{{action}}</button>
+    <button mat-button class="mat-danger" (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+  </div>
+</div>

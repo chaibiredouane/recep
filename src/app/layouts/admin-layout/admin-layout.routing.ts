@@ -6,14 +6,18 @@ import { InconsistencyComponent } from '../../inconsistency/inconsistency.compon
 import { NcReportComponent } from '../../nc-report/nc-report.component';
 import { OpenBoxComponent } from '../../open-box/open-box.component';
 
-
 import { ExpectedSampleComponent } from '../../expected-sample/expected-sample.component';
-import { DialogBoxComponent } from '../../dialog-box/dialog-box.component';
 import { DragDropComponent } from '../../drag-drop/drag-drop.component';
 import { NcInfoComponent } from '../../nc-info/nc-info.component';
+import { NcConditionComponent } from '../../nc-condition/nc-condition.component';
+import { NcDataComponent } from '../../nc-data/nc-data.component';
+import { SamplesComponent } from '../../samples/samples.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'nc_info',          component: NcInfoComponent },
+    { path: 'nc_condition',     component: NcConditionComponent },
+    { path: 'nc_data',          component: NcDataComponent },
+    { path: 'samples',          component: SamplesComponent },
     { path: 'expected',         component: ExpectedSampleComponent },
     { path: 'box_arrival',      component: BoxArrivalComponent },
     { path: 'open_boxes',       component: OpenBoxComponent },
