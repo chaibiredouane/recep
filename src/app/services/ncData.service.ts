@@ -13,6 +13,11 @@ export class NcDataService {
         return this.http.get<NcData[]>(`${this.baseUrl}`);
       }
       
+    getById (sampleId:number): Observable<NcData[]>{
+        return this.http.get<NcData[]>(`${this.baseUrl+"/params?sampleId="+sampleId}`);
+        // return this.http.get<NcData[]>(`${this.baseUrl}`, {params: {id: id}});
+      }
+
     addRow (obj: NcData): Observable<Object> {
          return this.http.post<NcData>(`${this.baseUrl}`,obj);
         }

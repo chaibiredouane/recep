@@ -8,13 +8,9 @@
      .mat-cell, .mat-footer-cell {
        font-size: smaller !important;
      }
-     tr.mat-row,tr.mat-header-row,tr.mat-footer-row {
-       height: 35px !important;
-     }
+     tr.mat-row,tr.mat-header-row,tr.mat-footer-row {height: 35px;}
      
-     .mat-sort-header-arrow {
-       color: white!important;
-     }
+     .mat-sort-header-arrow {color: white!important;}
      
      .card [class*=card-header-] .card-icon, .card [class*=card-header-] .card-text{
        background-color: #5a0023!important;
@@ -29,3 +25,64 @@
      .disable {background-color: lightgray !important; opacity: 0.5!important;color: gray!important;}
  
     .btn .material-icons,.btn:not(.btn-just-icon):not(.btn-fab) .fa{font-size: 2rem!important;}
+
+
+    table {
+      width: 100%;
+    }
+    
+    tr.example-detail-row {
+      height: 0;
+    }
+    
+    tr.example-element-row:not(.example-expanded-row):hover {
+      background: #777;
+    }
+    
+    tr.example-element-row:not(.example-expanded-row):active {
+      background: #efefef;
+    }
+    
+    .example-element-row td {
+      border-bottom-width: 0;
+    }
+    
+    .example-element-detail {
+      overflow: hidden;
+      display: flex;
+    }
+    
+    .example-element-diagram {
+      min-width: 80px;
+      border: 2px solid black;
+      padding: 8px;
+      font-weight: lighter;
+      margin: 8px 0;
+      height: 104px;
+    }
+    
+    .example-element-symbol {
+      font-weight: bold;
+      font-size: 40px;
+      line-height: normal;
+    }
+    
+    .example-element-description {
+      padding: 16px;
+    }
+    
+    .example-element-description-attribution {
+      opacity: 0.5;
+    }
+    
+    .inner-table {
+      width: 100%;
+    }
+    
+    .inner-table mat-form-field {
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    .expandedDetail{color: green!important;}
+    

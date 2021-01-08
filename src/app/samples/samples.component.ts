@@ -1,27 +1,51 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectorRef, Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { DialogSampleComponent } from '../dialog-sample/dialog-sample.component';
+import { NcData } from '../models/ncData.model';
 import { Sample } from '../models/sample.model';
+import { NcDataService } from '../services/ncData.service';
 import { SampleService } from '../services/sample.service';
 
 @Component({
   selector: 'app-samples',
   templateUrl: './samples.component.html',
-  styleUrls: ['./samples.component.css']
+  styleUrls: ['./samples.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class SamplesComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Sample>();
-  displayedColumns: string[] = ['id','constances_id','sample_barcode','sample_id_lims','ces_id','box_id','collect_datetime','scan_datetime','abort_reason','scan_by','source','detail','action'];
+  displayedColumns: string[] = ['id','constances_id','sample_barcode','sample_id_lims','ces_id','box_id','collect_datetime','scan_datetime','abort_reason','scan_by','source','detail','nc','action'];
+
+  dataSource2: MatTableDataSource<NcData>;
+  innerDisplayedColumns = ['id', 'sample_id', 'nc_code','status', 'user_comment', 'create_date','create_by'];
+  expandedElement: Sample | null;
+  data2: NcData[]=null;
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
+
+  @ViewChildren('innerSort') innerSort: QueryList<MatSort>;
+  @ViewChildren('innerTables') innerTables: QueryList<MatTable<NcData>>;
+  @ViewChildren('paginator2') paginator2 = new QueryList<MatPaginator>();
+  //  @ViewChildren('paginator2') paginator2: MatPaginator;
+
+
   
-  constructor(public dialog:MatDialog, private sampleService:SampleService,private toastr: ToastrService){}
+  constructor(public dialog:MatDialog, private sampleService:SampleService,private toastr: ToastrService,
+    private cd: ChangeDetectorRef, private ncdataService:NcDataService){}
 
   ngOnInit() {this.refresh();}
   refresh() {
@@ -35,6 +59,7 @@ export class SamplesComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+
    }
 
    applyFilter(filterValue: string) {
@@ -68,6 +93,22 @@ export class SamplesComponent implements OnInit {
     this.sampleService.deleteSample(row_obj).subscribe();
     this.refresh();
   }
+  
+  toggleRow(element: Sample,index:number) {
+    console.log('id : '+element.id+' index : '+index);
+    if(element.id==null ||element.id<=0) return null;
+    this.expandedElement = this.expandedElement === element ? null : element;
+    this.cd.detectChanges();
+    this.ncdataService.getById(element.id).subscribe((data: NcData[]) => {
+    this.dataSource2 = new MatTableDataSource<NcData>(data);
+    this.dataSource2.paginator = this.paginator2.toArray()[index];
+    this.dataSource2.sort = this.sort;
+    });    
+}
 
+
+applyFilter2(filterValue: string) {
+  this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<NcData>).filter = filterValue.trim().toLowerCase());
+}
 
 }
