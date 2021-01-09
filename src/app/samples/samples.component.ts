@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { DialogNcDataComponent } from '../dialog-nc-data/dialog-nc-data.component';
 import { DialogSampleComponent } from '../dialog-sample/dialog-sample.component';
 import { NcData } from '../models/ncData.model';
 import { Sample } from '../models/sample.model';
@@ -29,7 +30,7 @@ export class SamplesComponent implements OnInit {
   displayedColumns: string[] = ['id','constances_id','sample_barcode','sample_id_lims','ces_id','box_id','collect_datetime','scan_datetime','abort_reason','scan_by','source','detail','nc','action'];
 
   dataSource2: MatTableDataSource<NcData>;
-  innerDisplayedColumns = ['id', 'sample_id', 'nc_code','status', 'user_comment', 'create_date','create_by'];
+  innerDisplayedColumns = ['id', 'sample_id', 'nc_code','status', 'user_comment', 'create_date','create_by','action'];
   expandedElement: Sample | null;
   data2: NcData[]=null;
 
@@ -45,7 +46,7 @@ export class SamplesComponent implements OnInit {
 
   
   constructor(public dialog:MatDialog, private sampleService:SampleService,private toastr: ToastrService,
-    private cd: ChangeDetectorRef, private ncdataService:NcDataService){}
+    private cd: ChangeDetectorRef, private ncDataService:NcDataService){}
 
   ngOnInit() {this.refresh();}
   refresh() {
@@ -93,22 +94,46 @@ export class SamplesComponent implements OnInit {
     this.sampleService.deleteSample(row_obj).subscribe();
     this.refresh();
   }
-  
+  // --------------------------------------Table 2 ---------------------------------------
   toggleRow(element: Sample,index:number) {
     console.log('id : '+element.id+' index : '+index);
     if(element.id==null ||element.id<=0) return null;
     this.expandedElement = this.expandedElement === element ? null : element;
     this.cd.detectChanges();
-    this.ncdataService.getById(element.id).subscribe((data: NcData[]) => {
+    this.ncDataService.getById(element.id).subscribe((data: NcData[]) => {
     this.dataSource2 = new MatTableDataSource<NcData>(data);
     this.dataSource2.paginator = this.paginator2.toArray()[index];
     this.dataSource2.sort = this.sort;
     });    
 }
-
-
 applyFilter2(filterValue: string) {
   this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<NcData>).filter = filterValue.trim().toLowerCase());
+}
+
+openDialog2(action,obj) {
+  obj.action = action;
+  const dialogRef = this.dialog.open(DialogNcDataComponent, {width: '450px', data:obj});
+
+  dialogRef.afterClosed().subscribe(result => {
+    if(result.event == 'Add'){this.addRowData2(result.data);}
+    else if(result.event == 'Update'){this.updateRowData2(result.data);}
+    else if(result.event == 'Delete'){this.deleteRowData2(result.data);}
+  });
+}
+
+ addRowData2(row_obj){
+  this.ncDataService.addRow(row_obj).subscribe();
+  this.refresh();
+}
+
+updateRowData2(row_obj){
+   this.ncDataService.updateRow(row_obj).subscribe();
+  this.refresh();
+}
+
+deleteRowData2(row_obj){
+  this.ncDataService.deleteRow(row_obj).subscribe();
+  this.refresh();
 }
 
 }

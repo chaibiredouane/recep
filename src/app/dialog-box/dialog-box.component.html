@@ -6,35 +6,42 @@
     </div>
   <div mat-dialog-content >
     <ng-container *ngIf="action != 'Delete'; else elseTemplate">
-        <mat-form-field >
-          <input style="font-weight: bolder; color: #5a0023;" placeholder="{{action}} Nc code" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.nc_code" [formControl]="ncCode" required>
-          <!-- <mat-error *ngIf="ncCode.invalid">{{getErrorMessage()}}</mat-error> -->
+        <mat-form-field *ngIf="action == 'Update'">
+          <input style="font-weight: bolder; color: #5a0023;" placeholder="{{action}} Id" readonly matInput [(ngModel)]="local_data.id"required>
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Label" matInput [(ngModel)]="local_data.nc_display" [formControl]="ncLabel" required>
-          <!-- <mat-error *ngIf="ncCode.invalid">{{getLabelErrorMessage()}}</mat-error> -->
+          <input placeholder="{{action}} Ces id" matInput [(ngModel)]="local_data.ces_id"required>
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Lims Display" matInput [(ngModel)]="local_data.nc_lims_display">
+          <input placeholder="{{action}} Expected date" matInput [(ngModel)]="local_data.expected_delivery_date">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Sample type" matInput [(ngModel)]="local_data.sample_types">
+          <input placeholder="{{action}} Barcode" matInput [(ngModel)]="local_data.box_barcode">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} FR translation" matInput required [(ngModel)]="local_data.fr_translation">
+          <input placeholder="{{action}} Scan datetime" matInput required [(ngModel)]="local_data.scan_datetime">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Scan by" matInput required [(ngModel)]="local_data.scan_by">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Status" matInput required [(ngModel)]="local_data.status">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Opened by" matInput required [(ngModel)]="local_data.opened_by">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Temp status" matInput required [(ngModel)]="local_data.temp_status">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Nb forms" matInput required [(ngModel)]="local_data.nb_forms">
+        </mat-form-field>
+        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+          <input placeholder="{{action}} Import process id" matInput required [(ngModel)]="local_data.import_process_id">
         </mat-form-field>
 
-     <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-        <mat-select value="{{categorySelected}}" placeholder="{{action}} Category" (selectionChange)="changeCategory($event)">
-              <mat-option value=""></mat-option>
-               <mat-option value="COLLECTION">COLLECTION</mat-option>
-              <mat-option value="RECEPTION">RECEPTION</mat-option>
-              <mat-option value="TRANSPORT">TRANSPORT</mat-option>
-              <mat-option value="PROCESSING">PROCESSING</mat-option>
-        </mat-select>
-    </mat-form-field>
 
-      <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
+      <!-- <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
         <div class="row">
           <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Is Manual " matInput required [(ngModel)]="manualSelected" > </div>
           <div class="col-md-6">
@@ -43,58 +50,16 @@
             </mat-slide-toggle>
           </div>
         </div>
-      </mat-form-field>
-    <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
-      <div class="row">
-        <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Is Form " matInput required [(ngModel)]="formSelected" > </div>
-        <div class="col-md-6">
-          <mat-slide-toggle [checked]="isChecked(formSelected)" (change)="toggleForm($event)" >
-            {{formSelected}}
-          </mat-slide-toggle>
-        </div>
-      </div>
-    </mat-form-field>
-      <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
-        <div class="row">
-          <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Deviation " matInput required [(ngModel)]="deviationSelected" > </div>
-          <div class="col-md-6">
-            <mat-slide-toggle [checked]="isChecked(deviationSelected)"  (change)="toggleDeviation($event)" >
-              {{deviationSelected}}
-            </mat-slide-toggle>
-          </div>
-        </div>
-      </mat-form-field>
-    <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
-      <div class="row">
-        <div class="col-md-6"> <input matInput readonly placeholder="{{action}} To display " matInput required [(ngModel)]="displaySelected" > </div>
-        <div class="col-md-6">
-          <mat-slide-toggle [checked]="isChecked(displaySelected)"  (change)="toggleDisplay($event)" >
-            {{displaySelected}}
-          </mat-slide-toggle>
-        </div>
-      </div>
-    </mat-form-field>
-
-    <mat-form-field *ngIf="action != 'Delete'; else elseTemplate" > 
-      <div class="row">
-        <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Is active " matInput required [(ngModel)]="labelActive" > </div>
-        <div class="col-md-6">
-          <mat-slide-toggle checked="{{activeSelected}}" (change)="toggleActive($event)" >
-            {{labelActive}}
-          </mat-slide-toggle>
-        </div>
-      </div>
-    </mat-form-field>
-    
+      </mat-form-field> -->
     </ng-container>
     <ng-template #elseTemplate style="margin: 10px;">
       <mat-form-field style="text-align: center;margin:10px;" >
-        <input style="font-weight:bolder;"  placeholder="{{action}} Nc code" readonly matInput required [(ngModel)]="local_data.nc_code">
+        <input style="font-weight:bolder;"  placeholder="{{action}} Box barcode" readonly matInput required [(ngModel)]="local_data.box_barcode">
       </mat-form-field>
     </ng-template>
   </div>
   <div  mat-dialog-actions>
-    <button mat-button class="mat-success" (click)="doAction()" [disabled]="isDisableForm()" >{{action}}</button>
+    <button mat-button class="mat-success" (click)="doAction()" >{{action}}</button>
     <button mat-button class="mat-danger" (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
   </div>
 </div>

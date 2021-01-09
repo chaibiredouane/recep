@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
+import { DialogNcInfoComponent } from '../dialog-nc-info/dialog-nc-info.component';
 import { NcInfo } from '../models/ncInfo.model';
 import { NcInfoService } from '../services/ncInfo.service';
 
@@ -50,7 +51,7 @@ export class NcInfoComponent implements OnInit {
   
   openDialog(action,obj) {
     obj.action = action;
-    const dialogRef = this.dialog.open(DialogBoxComponent, {width: '450px', data:obj});
+    const dialogRef = this.dialog.open(DialogNcInfoComponent, {width: '450px', data:obj});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result.event == 'Add'){this.addRowData(result.data);}

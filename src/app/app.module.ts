@@ -28,6 +28,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { NcInfoService } from './services/ncInfo.service';
 import { NcConditionService } from './services/ncCondotion.service';
 import { NcDataService } from './services/ncData.service';
+import { BoxService } from './services/box.service';
+import { DialogNcInfoComponent } from './dialog-nc-info/dialog-nc-info.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { NcDataService } from './services/ncData.service';
     NcInfoService,
     NcConditionService,
     DatePipe,
-    NcDataService
+    NcDataService,
+    BoxService
   ],
   bootstrap: [AppComponent]
 })

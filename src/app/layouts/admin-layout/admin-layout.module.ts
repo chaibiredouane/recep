@@ -13,7 +13,6 @@ import {MatSelectModule} from '@angular/material/select';
 import { ExpectedSampleComponent } from '../../expected-sample/expected-sample.component';
 import { DataTablesModule } from 'angular-datatables';
 import { OpenBoxComponent } from '../../open-box/open-box.component';
-import { BoxArrivalComponent } from '../../box-arrival/box-arrival.component';
 import { FormEncodingComponent } from '../../form-encoding/form-encoding.component';
 import { NcReportComponent } from '../../nc-report/nc-report.component';
 import { InconsistencyComponent } from '../../inconsistency/inconsistency.component';
@@ -23,7 +22,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { DialogBoxComponent } from '../../dialog-box/dialog-box.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ToastrModule } from 'ngx-toastr';
 import { DragDropComponent } from '../../drag-drop/drag-drop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop'
 import { NcInfoComponent } from '../../nc-info/nc-info.component';
@@ -34,6 +32,8 @@ import { NcDataComponent } from '../../nc-data/nc-data.component';
 import { DialogNcDataComponent } from '../../dialog-nc-data/dialog-nc-data.component';
 import { SamplesComponent } from '../../samples/samples.component';
 import { DialogSampleComponent } from '../../dialog-sample/dialog-sample.component';
+import { BoxesComponent } from '../../boxes/boxes.component';
+import { DialogNcInfoComponent } from '../../dialog-nc-info/dialog-nc-info.component';
 
 @NgModule({
   imports: [
@@ -59,7 +59,7 @@ import { DialogSampleComponent } from '../../dialog-sample/dialog-sample.compone
     UpgradeComponent,
     ExpectedSampleComponent,
     OpenBoxComponent,
-    BoxArrivalComponent,
+    BoxesComponent,
     FormEncodingComponent,
     NcReportComponent,
     InconsistencyComponent,
@@ -72,13 +72,15 @@ import { DialogSampleComponent } from '../../dialog-sample/dialog-sample.compone
     NcDataComponent,
     DialogNcDataComponent,
     SamplesComponent,
-    DialogSampleComponent
+    DialogSampleComponent,
+    DialogNcInfoComponent
   ],
   entryComponents: [
     DialogBoxComponent,
     DialogNcConditionComponent,
     DialogNcDataComponent,
-    DialogSampleComponent
+    DialogSampleComponent,
+    DialogNcInfoComponent
   ]
 })
 

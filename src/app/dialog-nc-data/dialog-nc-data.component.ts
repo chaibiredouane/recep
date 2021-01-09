@@ -12,22 +12,9 @@ import { NcDataService } from '../services/ncData.service';
 export class DialogNcDataComponent {
   action:string;
   local_data:any;
-
-  ncCode = new FormControl('', [Validators.required]);
-  getErrorMessage() {
-    if (this.ncCode.hasError('required')) {
-      return 'You must enter a value';
-    }
-  }
-  sample_id = new FormControl('', [Validators.required]);
-  getLabelErrorMessage() {
-    if (this.sample_id.hasError('required')) {
-      return 'You must enter a value';
-    }
-  }
+  currentUser:String ='Current User Account';
   constructor(
     public dialogRef: MatDialogRef<DialogNcDataComponent>
-    // @Optional() is used to prevent error if no data is passed
      ,@Optional() @Inject(MAT_DIALOG_DATA) public data: NcDataService
      ,private datePipe: DatePipe
     ) 
@@ -37,14 +24,16 @@ export class DialogNcDataComponent {
     }
 
   doAction(){
+    console.log(' nc_code : '+this.local_data.nc_code);
+    
+    this.local_data.create_by=this.currentUser;
     if(this.action=='Add')
     {
       this.local_data.create_date=this.datePipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss');
+      this.local_data.status='Created';
     }
     this.dialogRef.close({event:this.action,data:this.local_data});
   }
 
   closeDialog(){this.dialogRef.close({event:'Cancel'});}
-
-  isDisableForm():boolean{ return (this.ncCode.invalid || this.sample_id.invalid) && this.action != 'Delete';}
 }

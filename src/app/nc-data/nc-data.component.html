@@ -74,7 +74,7 @@
                   </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;let entry" [ngClass]="{'disable': entry.is_active == '0' }" ></tr>     
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;let entry" [ngClass]="{'disable': entry.status === 'Deleted' }" ></tr>     
              </table>
                      <mat-paginator style="color: #5a0023!important;font-weight:bolder ;" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
                 </div>

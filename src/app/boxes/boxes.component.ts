@@ -4,30 +4,30 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { DialogNcDataComponent } from '../dialog-nc-data/dialog-nc-data.component';
-import { NcData } from '../models/ncData.model';
-import { NcDataService } from '../services/ncData.service';
+import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
+import { Box } from '../models/box.model';
+import { BoxService } from '../services/box.service';
 
 @Component({
-  selector: 'app-nc-data',
-  templateUrl: './nc-data.component.html',
-  styleUrls: ['./nc-data.component.css']
+  selector: 'app-boxes',
+  templateUrl: './boxes.component.html',
+  styleUrls: ['./boxes.component.css']
 })
-export class NcDataComponent implements OnInit {
+export class BoxesComponent implements OnInit {
 
-  dataSource = new MatTableDataSource<NcData>();
-  displayedColumns: string[] = ['sample_id','nc_code','status','create_date','user_comment','action'];
+  dataSource = new MatTableDataSource<Box>();
+  displayedColumns: string[] = ['id','ces_id','expected_delivery_date','box_barcode','scan_datetime','scan_by','status','opened_by','temp_status','nb_forms','import_process_id','action'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
   
-  constructor(public dialog:MatDialog, private ncService:NcDataService,private changeDetectorRefs: ChangeDetectorRef,
+  constructor(public dialog:MatDialog, private ncService:BoxService,private changeDetectorRefs: ChangeDetectorRef,
     private toastr: ToastrService){}
 
   ngOnInit() {this.refresh();}
   refresh() {
-    this.ncService.getAll().subscribe((data: NcData[]) => {
-      this.dataSource = new MatTableDataSource<NcData>(data);
+    this.ncService.getAll().subscribe((data: Box[]) => {
+      this.dataSource = new MatTableDataSource<Box>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.changeDetectorRefs.detectChanges();
@@ -47,7 +47,7 @@ export class NcDataComponent implements OnInit {
   
   openDialog(action,obj) {
     obj.action = action;
-    const dialogRef = this.dialog.open(DialogNcDataComponent, {width: '450px', data:obj});
+    const dialogRef = this.dialog.open(DialogBoxComponent, {width: '450px', data:obj});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result.event == 'Add'){this.addRowData(result.data);}
@@ -70,6 +70,4 @@ export class NcDataComponent implements OnInit {
     this.ncService.deleteRow(row_obj).subscribe();
     this.refresh();
   }
-
-
 }

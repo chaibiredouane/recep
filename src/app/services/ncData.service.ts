@@ -14,8 +14,7 @@ export class NcDataService {
       }
       
     getById (sampleId:number): Observable<NcData[]>{
-        return this.http.get<NcData[]>(`${this.baseUrl+"/params?sampleId="+sampleId}`);
-        // return this.http.get<NcData[]>(`${this.baseUrl}`, {params: {id: id}});
+        return this.http.get<NcData[]>(`${this.baseUrl+"/param?sampleId="+sampleId}`);
       }
 
     addRow (obj: NcData): Observable<Object> {
@@ -28,12 +27,15 @@ export class NcDataService {
          }
   
     deleteRow (obj:NcData):Observable<Object>{
-        const options = {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          }),
-          body: obj
-        }
-        return this.http.delete<NcData>(`${this.baseUrl}`, options);
+      obj.status='Deleted';
+      return this.http.put<NcData>(`${this.baseUrl}`,obj);
+      // No delete
+        // const options = {
+        //   headers: new HttpHeaders({
+        //     'Content-Type': 'application/json'
+        //   }),
+        //   body: obj
+        // }
+        // return this.http.delete<NcData>(`${this.baseUrl}`, options);
     }
 } 
