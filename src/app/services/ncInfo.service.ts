@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders  } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Dictionary } from "../models/dictionary.model";
 import { NcInfo } from "../models/ncInfo.model";
 
 @Injectable()
@@ -13,8 +14,6 @@ export class NcInfoService{
     getAll (): Observable<NcInfo[]>{
         return this.http.get<NcInfo[]>(`${this.baseUrl}`);
       }
-      
-      saveToServer(){ }
   
       addRow (ncInfo: NcInfo): Observable<Object> {
          return this.http.post<NcInfo>(`${this.baseUrl}`,ncInfo);
@@ -33,5 +32,12 @@ export class NcInfoService{
           body: ncInfo
         }
         return this.http.delete<NcInfo>(`${this.baseUrl}`, options);
+      }
+
+      getListNcCode (): Observable<Dictionary[]>{
+        return this.http.get<Dictionary[]>(`${this.baseUrl+"/code"}`);
+      }
+      getListNcCodeWithId (sample_id:number): Observable<Dictionary[]>{
+        return this.http.get<Dictionary[]>(`${this.baseUrl+"/code"}/${sample_id}`);
       }
 }

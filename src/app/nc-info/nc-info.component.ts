@@ -21,7 +21,7 @@ export class NcInfoComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
 
-  constructor(public dialog:MatDialog, private ncInfoService:NcInfoService,private changeDetectorRefs: ChangeDetectorRef,
+  constructor(public dialog:MatDialog, private ncInfoService:NcInfoService,private cd: ChangeDetectorRef,
     private toastr: ToastrService){
   }
 
@@ -29,12 +29,11 @@ export class NcInfoComponent implements OnInit {
     this.refresh();
   }
   refresh() {
+    this.cd.detectChanges();
     this.ncInfoService.getAll().subscribe((data: NcInfo[]) => {
       this.dataSource = new MatTableDataSource<NcInfo>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      // this.changeDetectorRefs.detectChanges();
-     // this.table.renderRows();
       });
   }
 
@@ -62,12 +61,14 @@ export class NcInfoComponent implements OnInit {
 
    addRowData(row_obj){
     this.ncInfoService.addRow(row_obj).subscribe();
+    this.cd.reattach();
     this.refresh();
   }
 
   updateRowData(row_obj){
      this.ncInfoService.updateRow(row_obj).subscribe();
-    this.refresh();
+     this.cd.detectChanges();
+     this.refresh();
   }
   
   deleteRowData(row_obj){

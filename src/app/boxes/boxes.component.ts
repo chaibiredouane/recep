@@ -21,16 +21,16 @@ export class BoxesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable,{static:true}) table: MatTable<any>;
   
-  constructor(public dialog:MatDialog, private ncService:BoxService,private changeDetectorRefs: ChangeDetectorRef,
+  constructor(public dialog:MatDialog, private ncService:BoxService,private cd: ChangeDetectorRef,
     private toastr: ToastrService){}
 
   ngOnInit() {this.refresh();}
   refresh() {
+    this.cd.detectChanges();
     this.ncService.getAll().subscribe((data: Box[]) => {
       this.dataSource = new MatTableDataSource<Box>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.changeDetectorRefs.detectChanges();
       });
   }
 

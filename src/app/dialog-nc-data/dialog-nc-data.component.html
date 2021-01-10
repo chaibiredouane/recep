@@ -6,33 +6,35 @@
     </div>
   <div mat-dialog-content >
     <ng-container *ngIf="action != 'Delete'; else elseTemplate">
-      <mat-form-field >
-        <input style="font-weight: bolder; color: #5a0023;" placeholder="{{action}} Nc code" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.nc_code" required>
+      <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+        <mat-select [(ngModel)]="ncCodeSelected" placeholder="Nc code" (selectionChange)="ncSelected($event)" [formControl]="ncCode" required>
+          <mat-option *ngFor="let e of listNcCode" value="{{e.value}}"><b>{{e.value}} </b> : {{e.label}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+      <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+        <input placeholder="Sample Id" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.sample_id" [formControl]="sampleId" required>
+      </mat-form-field>
+      <mat-form-field *ngIf="action == 'Update'">
+        <input placeholder="Status" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.status">
       </mat-form-field>
       <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-        <input placeholder="{{action}} Sample Id" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.sample_id" required>
+          <input placeholder="Comment" matInput [(ngModel)]="local_data.user_comment">
       </mat-form-field>
       <mat-form-field *ngIf="action == 'Update'">
-        <input placeholder="{{action}} Status" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.status">
-      </mat-form-field>
-      <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Comment" matInput [(ngModel)]="local_data.user_comment">
+        <input placeholder="Create date" readonly matInput [(ngModel)]="local_data.create_date">
       </mat-form-field>
       <mat-form-field *ngIf="action == 'Update'">
-        <input placeholder="{{action}} Create date" readonly matInput [(ngModel)]="local_data.create_date">
-      </mat-form-field>
-      <mat-form-field *ngIf="action == 'Update'">
-        <input placeholder="{{action}} Create by" readonly matInput [(ngModel)]="local_data.create_by">
+        <input placeholder="Create by" readonly matInput [(ngModel)]="local_data.create_by">
       </mat-form-field>
     </ng-container>
     <ng-template #elseTemplate style="margin: 10px;">
       <mat-form-field style="text-align: center;margin:10px;" >
-        <input style="font-weight:bolder;"  placeholder="{{action}} Nc code" readonly matInput required [(ngModel)]="local_data.nc_code">
+        <input style="font-weight:bolder;"  placeholder="Nc code" readonly matInput required [(ngModel)]="local_data.nc_code">
       </mat-form-field>
     </ng-template>
   </div>
   <div  mat-dialog-actions>
-    <button mat-button class="mat-success" (click)="doAction()" >{{action}}</button>
+    <button mat-button class="mat-success" (click)="doAction()" [disabled]="isDisableForm()" >{{action}}</button>
     <button mat-button class="mat-danger" (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
   </div>
 </div>

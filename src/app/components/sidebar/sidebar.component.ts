@@ -14,13 +14,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/samples', title: 'Sample Management',  icon: 'extension', class: '' },
     { path: '/boxes', title: 'Boxes',  icon: 'inventory_2', class: '' },
     { path: '/expected', title: 'Expected samples',  icon: 'hourglass_top', class: '' },
-    { path: '/box_arrival', title: 'Box arrival',  icon:'local_shipping', class: '' },
     { path: '/open_boxes', title: 'Opening boxes',  icon:'inventory_2', class: '' },
-    { path: '/form', title: 'Form encoding',  icon:'table_view', class: '' },
-    { path: '/nc_report', title: 'Non-Conformity report',  icon:'bug_report', class: '' },
-    { path: '/inconsistencies', title: 'Inconsistencies',  icon:'report_problem', class: '' },
-    { path: '/drag_drop', title: 'Waiting for process',  icon:'alt_route', class: '' },
-    { path: '/centrifugation', title: 'Centrifugation',  icon:'cached', class: '' },
+    { path: '/help', title: 'Help',  icon:'help', class: '' },
 ];
 
 @Component({

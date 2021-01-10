@@ -12,6 +12,7 @@ import { NcConditionComponent } from '../../nc-condition/nc-condition.component'
 import { NcDataComponent } from '../../nc-data/nc-data.component';
 import { SamplesComponent } from '../../samples/samples.component';
 import { BoxesComponent } from '../../boxes/boxes.component';
+import { HelpComponent } from '../../help/help.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'nc_info',          component: NcInfoComponent },
@@ -21,11 +22,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'expected',         component: ExpectedSampleComponent },
     { path: 'boxes',            component: BoxesComponent },
     { path: 'open_boxes',       component: OpenBoxComponent },
-    { path: 'form',             component: FormEncodingComponent },
-    { path: 'nc_report',        component: NcReportComponent },
-    { path: 'inconsistencies',  component: InconsistencyComponent },
-    { path: 'centrifugation',   component: CentriComponent },
-    { path: 'drag_drop',        component: DragDropComponent },
+    { path: 'help',             component: HelpComponent },
     
     // { path: 'samples',          component: DialogBoxComponent },
 ];

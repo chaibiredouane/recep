@@ -34,6 +34,14 @@ import { SamplesComponent } from '../../samples/samples.component';
 import { DialogSampleComponent } from '../../dialog-sample/dialog-sample.component';
 import { BoxesComponent } from '../../boxes/boxes.component';
 import { DialogNcInfoComponent } from '../../dialog-nc-info/dialog-nc-info.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+
+import {VgCoreModule} from '@videogular/ngx-videogular/core';
+import {VgControlsModule} from '@videogular/ngx-videogular/controls';
+import {VgOverlayPlayModule} from '@videogular/ngx-videogular/overlay-play';
+import {VgBufferingModule} from '@videogular/ngx-videogular/buffering';
+import { HelpComponent } from '../../help/help.component';
 
 @NgModule({
   imports: [
@@ -53,7 +61,13 @@ import { DialogNcInfoComponent } from '../../dialog-nc-info/dialog-nc-info.compo
     MatSortModule,
     MatDialogModule,
     DragDropModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   declarations: [
     UpgradeComponent,
@@ -73,7 +87,8 @@ import { DialogNcInfoComponent } from '../../dialog-nc-info/dialog-nc-info.compo
     DialogNcDataComponent,
     SamplesComponent,
     DialogSampleComponent,
-    DialogNcInfoComponent
+    DialogNcInfoComponent,
+    HelpComponent
   ],
   entryComponents: [
     DialogBoxComponent,

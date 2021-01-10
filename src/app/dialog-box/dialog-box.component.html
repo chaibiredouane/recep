@@ -13,25 +13,28 @@
           <input placeholder="{{action}} Ces id" matInput [(ngModel)]="local_data.ces_id"required>
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Expected date" matInput [(ngModel)]="local_data.expected_delivery_date">
+          <input placeholder="{{action}} Expected date" type="datetime-local" matInput [ngModel]="local_data.expected_delivery_date | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="filterDateFrom = dateChanged($event,'expected_delivery_date')">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
           <input placeholder="{{action}} Barcode" matInput [(ngModel)]="local_data.box_barcode">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Scan datetime" matInput required [(ngModel)]="local_data.scan_datetime">
+          <!-- <input placeholder="{{action}} Scan datetime" matInput required [(ngModel)]="local_data.scan_datetime"> -->
+          <input matInput type="datetime-local" placeholder="{{action}} Scan datetime" [ngModel]="local_data.scan_datetime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="filterDateFrom = dateChanged($event,'scan_datetime')">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
           <input placeholder="{{action}} Scan by" matInput required [(ngModel)]="local_data.scan_by">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Status" matInput required [(ngModel)]="local_data.status">
-        </mat-form-field>
+          <mat-select value="{{statusSelected}}" placeholder="{{action}} Status" (selectionChange)="selectedCategory($event)">
+                <mat-option value=""></mat-option>
+                 <mat-option value="Closed">Closed</mat-option>
+                <mat-option value="Opened">Opened</mat-option>
+                <mat-option value="Received">Received</mat-option>
+          </mat-select>
+      </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
           <input placeholder="{{action}} Opened by" matInput required [(ngModel)]="local_data.opened_by">
-        </mat-form-field>
-        <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Temp status" matInput required [(ngModel)]="local_data.temp_status">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
           <input placeholder="{{action}} Nb forms" matInput required [(ngModel)]="local_data.nb_forms">
@@ -39,18 +42,12 @@
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
           <input placeholder="{{action}} Import process id" matInput required [(ngModel)]="local_data.import_process_id">
         </mat-form-field>
-
-
-      <!-- <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
-        <div class="row">
-          <div class="col-md-6"> <input matInput readonly placeholder="{{action}} Is Manual " matInput required [(ngModel)]="manualSelected" > </div>
-          <div class="col-md-6">
-            <mat-slide-toggle [checked]="isChecked(manualSelected)"  (change)="toggleManual($event)" >
-              {{manualSelected}}
-            </mat-slide-toggle>
-          </div>
-        </div>
-      </mat-form-field> -->
+        <section class="example-section">
+          <label class="example-margin"> {{action}} Status : </label>
+          <mat-radio-group [(ngModel)]="local_data.temp_status">
+            <mat-radio-button class="example-margin" *ngFor="let e of listStatus" [value]="e.value">{{e.label}}</mat-radio-button> 
+          </mat-radio-group>
+        </section>
     </ng-container>
     <ng-template #elseTemplate style="margin: 10px;">
       <mat-form-field style="text-align: center;margin:10px;" >

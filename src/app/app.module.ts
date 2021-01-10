@@ -21,7 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import {NgxPaginationModule} from 'ngx-pagination';
 
-import {  AgmCoreModule} from '@agm/core';
+import { AgmCoreModule} from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
@@ -29,8 +29,13 @@ import { NcInfoService } from './services/ncInfo.service';
 import { NcConditionService } from './services/ncCondotion.service';
 import { NcDataService } from './services/ncData.service';
 import { BoxService } from './services/box.service';
-import { DialogNcInfoComponent } from './dialog-nc-info/dialog-nc-info.component';
-
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgControlsModule } from '@videogular/ngx-videogular/controls';
+import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
+import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +60,13 @@ import { DialogNcInfoComponent } from './dialog-nc-info/dialog-nc-info.component
     NgxPaginationModule,
     MatPaginatorModule,
     HttpClientModule,
+    NgxMatDatetimePickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
     ToastrModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'

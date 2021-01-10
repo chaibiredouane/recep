@@ -1,0 +1,23 @@
+.video-player-wrapper {text-align: center;}
+
+.player-list {margin: 0;padding: 0;
+}
+
+.player-list li {
+   list-style: none;
+   padding: 15px 15px;
+   display: block;
+   background: #cccc;
+   cursor: pointer;
+   text-align: left;
+   margin-bottom: 1px;
+   color: #5a0023;
+}
+
+li.selected {background: #6b95aa !important;   font-weight: bold;}
+
+/* li {font-size : 1.5em; margin: 1em 0;} */
+
+li > *{ display: inline-block; vertical-align: middle;margin: auto}
+
+li> i{margin-right: 5px;}

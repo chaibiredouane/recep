@@ -41,8 +41,7 @@ export class SamplesComponent implements OnInit {
   @ViewChildren('innerSort') innerSort: QueryList<MatSort>;
   @ViewChildren('innerTables') innerTables: QueryList<MatTable<NcData>>;
   @ViewChildren('paginator2') paginator2 = new QueryList<MatPaginator>();
-  //  @ViewChildren('paginator2') paginator2: MatPaginator;
-
+  indexPaginator2:number;
 
   
   constructor(public dialog:MatDialog, private sampleService:SampleService,private toastr: ToastrService,
@@ -50,6 +49,7 @@ export class SamplesComponent implements OnInit {
 
   ngOnInit() {this.refresh();}
   refresh() {
+    this.cd.detectChanges();
     this.sampleService.getSamples().subscribe((data: Sample[]) => {
       this.dataSource = new MatTableDataSource<Sample>(data);
       this.dataSource.paginator = this.paginator;
@@ -60,7 +60,6 @@ export class SamplesComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-
    }
 
    applyFilter(filterValue: string) {
@@ -95,16 +94,20 @@ export class SamplesComponent implements OnInit {
     this.refresh();
   }
   // --------------------------------------Table 2 ---------------------------------------
+  refresh2() {
+    if(this.expandedElement== null) return;
+    this.ncDataService.getById(this.expandedElement.id).subscribe((data: NcData[]) => {
+      this.dataSource2 = new MatTableDataSource<NcData>(data);
+      this.dataSource2.paginator = this.paginator2.toArray()[this.indexPaginator2];
+      this.dataSource2.sort = this.sort;
+      }); 
+  }
   toggleRow(element: Sample,index:number) {
-    console.log('id : '+element.id+' index : '+index);
+    this.indexPaginator2=index;
     if(element.id==null ||element.id<=0) return null;
     this.expandedElement = this.expandedElement === element ? null : element;
     this.cd.detectChanges();
-    this.ncDataService.getById(element.id).subscribe((data: NcData[]) => {
-    this.dataSource2 = new MatTableDataSource<NcData>(data);
-    this.dataSource2.paginator = this.paginator2.toArray()[index];
-    this.dataSource2.sort = this.sort;
-    });    
+    this.refresh2();
 }
 applyFilter2(filterValue: string) {
   this.innerTables.forEach((table, index) => (table.dataSource as MatTableDataSource<NcData>).filter = filterValue.trim().toLowerCase());
@@ -112,6 +115,9 @@ applyFilter2(filterValue: string) {
 
 openDialog2(action,obj) {
   obj.action = action;
+  if(action='Add'){
+    obj.sample_id=this.expandedElement.id;
+  }
   const dialogRef = this.dialog.open(DialogNcDataComponent, {width: '450px', data:obj});
 
   dialogRef.afterClosed().subscribe(result => {
@@ -123,17 +129,17 @@ openDialog2(action,obj) {
 
  addRowData2(row_obj){
   this.ncDataService.addRow(row_obj).subscribe();
-  this.refresh();
+  this.refresh2();
 }
 
 updateRowData2(row_obj){
    this.ncDataService.updateRow(row_obj).subscribe();
-  this.refresh();
+  this.refresh2();
 }
 
 deleteRowData2(row_obj){
   this.ncDataService.deleteRow(row_obj).subscribe();
-  this.refresh();
+  this.refresh2();
 }
 
 }

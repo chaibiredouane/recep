@@ -10,19 +10,19 @@
           <input style="font-weight: bolder; color: #5a0023;" placeholder="{{action}} Nc code" [readonly]="action == 'Update'" matInput [(ngModel)]="local_data.nc_code" [formControl]="ncCode" required>
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <textarea placeholder="{{action}} Condition" rows="2" matInput [(ngModel)]="local_data.nc_condition" [formControl]="nc_condition" required></textarea>
+          <textarea placeholder="Condition" rows="2" matInput [(ngModel)]="local_data.nc_condition" [formControl]="nc_condition" required></textarea>
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-          <input placeholder="{{action}} Apply by" matInput [(ngModel)]="local_data.nc_apply_by">
+          <input placeholder="Apply by" matInput [(ngModel)]="local_data.nc_apply_by">
         </mat-form-field>
         <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
-            <input placeholder="{{action}} Comment" matInput [(ngModel)]="local_data.nc_comment">
+            <input placeholder="Comment" matInput [(ngModel)]="local_data.nc_comment">
         </mat-form-field>
         <mat-form-field *ngIf="action == 'Update'">
-          <input placeholder="{{action}} Create date" readonly matInput [(ngModel)]="local_data.create_date">
+          <input placeholder="Create date" readonly matInput [(ngModel)]="local_data.create_date">
         </mat-form-field>
         <mat-form-field *ngIf="action == 'Update'">
-          <input placeholder="{{action}} Update date" readonly matInput required [(ngModel)]="local_data.update_date">
+          <input placeholder="Update date" readonly matInput required [(ngModel)]="local_data.update_date">
         </mat-form-field>
     
         <mat-form-field  *ngIf="action != 'Delete'; else elseTemplate" > 
